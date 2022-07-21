@@ -1,0 +1,86 @@
+Pre-learnings: 
+  event name(arguments);
+  called: emit name(arguments);
+
+
+
+
+2. Mappings and Addresses.
+    Mappings : mapping (data_type => data_type) %public% name;
+    address is a data_type to store all the addresses.
+
+3. msg.sender: Global variable, refers to the address of the 
+                person or smart contract that called this funtion.
+                There will always be a msg.sender when a smart contract is 
+                called.
+                Using msg.sender gives you the security of the Ethereum 
+                blockchain — the only way someone can modify someone 
+                else's data would be to steal the private key associated 
+                with their Ethereum address.
+
+4. require: is used to verify certain conditions that
+            must be true before running a function.
+
+5. inheritance of contracts: contract that inherits can 
+        access the inherited contracts functions and public variables.
+        syntax: contract new_contract is old_contract{}
+        (in the same file tho)
+
+6. you can keep contracts in different files and then import them like you 
+    normally do files. 
+    import "./filename.sol";
+
+7. types of memory in solidity: 
+    storage: values that are persistently stored in the chain 
+              irrespective of where they are declared. 
+    memory: temporary variables. 
+    Think of them as pointers. 
+    So if I was to set a variable as storage and then assign it the value 
+    to an index in a mapping or array then upon chaning the variable the 
+    array is also changed. 
+    "storage pointer"
+
+9. Internal vs External: Like defining public or private for functions but 
+                        Internal: just like private, ie. cannot be called
+                        from outside contract and "inherited contracts" 
+                        that is what internal changes, can be called from 
+                        inherited contracts.
+                        External: Similar to public, but can be called 
+                        ONLY outside the contract.
+  
+10. Interacting with 
+    other contracts: So it kind of looks like a contract skeleton. This 
+    is how the compiler knows it's an interface.
+
+    Defining interface looks like defining a contract, with a few 
+    differences. For one, we're only declaring the functions we want 
+    to interact with — in this case getNum — and we don't mention any
+    of the other functions or state variables.
+
+11. Interface named as kittyInterface; 
+    address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+    KittyInterface kittyContract = KittyInterface(ckAddress);
+
+    Solidity lets you return multiple values unlike most other 
+    languages.
+
+12. uint is an alias for uint256;
+      function multipleReturns() internal returns(uint a, uint b, uint c) {
+        return (1, 2, 3);
+      }
+
+      function processMultipleReturns() external {
+        uint a;
+        uint b;
+        uint c;
+        // This is how you do multiple assignment:
+        (a, b, c) = multipleReturns();
+      }
+
+      // Or if we only cared about one of the values:
+      function getLastReturnValue() external {
+        uint c;
+        // We can just leave the other fields blank:
+        (,,c) = multipleReturns();
+      }
+
